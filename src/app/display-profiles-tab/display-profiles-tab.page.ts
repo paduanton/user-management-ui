@@ -30,7 +30,7 @@ export class DisplayProfilesPage {
       },
       (response) =>  {
         if (response.error?.message) {
-          alert(response.error?.message)
+          alert(response.error?.message[0])
         } else {
           alert('Not able to get users, please try again');
         }

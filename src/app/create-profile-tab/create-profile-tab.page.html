@@ -44,7 +44,7 @@
       Last Name should be min 2 chars long.
     </span>
     <ion-item lines="full">
-      <ion-label position="floating">Date Of Birth</ion-label>
+      <ion-label position="floating">Date of Birth</ion-label>
       <ion-datetime (ionChange)="getDate($event)" formControlName="birthDate"></ion-datetime>
     </ion-item>
     <span class="error ion-padding" *ngIf="isSubmitted && errorControl.birthDate.errors?.required">

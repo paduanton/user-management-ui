@@ -40,11 +40,13 @@ export class CreateProfilePage {
   }
 
   getDate(event) {
-    const date = new Date(event.target.value)?.toISOString()?.substring(0, 10);
+    if(event.target.value) {
+      const date = new Date(event.target.value)?.toISOString()?.substring(0, 10);
 
-    this.profileForm.get('birthDate').setValue(date, {
-      onlyself: true
-    })
+      this.profileForm.get('birthDate').setValue(date, {
+        onlyself: true
+      });
+    }
   }
 
   onProfilePhotoChange(event) {
@@ -75,12 +77,8 @@ export class CreateProfilePage {
 
           alert('Profile added succesfully!');
 
-          this.isSubmitted = false;
-          this.profileForm.reset();
-
           const multipartFormData: any = new FormData();
           multipartFormData.append("image", this.profilePhoto);
-
 
           this.userService.createUserPhoto(_id, multipartFormData).subscribe(
             (response) => {
@@ -89,7 +87,7 @@ export class CreateProfilePage {
             },
             (response) =>  {
               if (response.error?.message) {
-                alert(response.error?.message)
+                alert(`Not able to store Profile Image! ${response.error?.message[0]}`)
               } else {
                 alert('Not able to store profile photo, please check the input data and try again (we only all images on profile)');
 
@@ -100,17 +98,16 @@ export class CreateProfilePage {
           // this.alertInfo.isOpen = true;
           // this.alertInfo.subHeader ='Check the new profile on the display tab.';
           // this.alertInfo.header ='Profile added succesfully!';
-          console.log(response)
+          this.isSubmitted = false;
+          this.profileForm.reset();
         },
         (response) =>  {
           if (response.error?.message) {
-            alert(response.error?.message)
+            alert(response.error?.message[0])
           } else {
             alert('Not able to create profile, please check the input data and try again (we only all images on profile)');
 
           }
-
-          console.log(response)
         }
       );
     }
