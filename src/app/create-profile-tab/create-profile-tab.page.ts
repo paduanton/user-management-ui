@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { UserService } from '../services/user.service';
+import { User } from 'src/app/interfaces/user.interface'
+import { ProfilePhoto } from '../interfaces/profilePhoto.interface';
 
 @Component({
   selector: 'create-profile-tab',
@@ -72,8 +74,8 @@ export class CreateProfilePage {
         phone_number: phoneNumber
       }
       this.userService.createUser(userData).subscribe(
-        (response: any) => {
-          const { _id } = response;
+        (userData: User) => {
+          const { _id } = userData;
 
           alert('Profile added succesfully!');
 
@@ -81,9 +83,8 @@ export class CreateProfilePage {
           multipartFormData.append("image", this.profilePhoto);
 
           this.userService.createUserPhoto(_id, multipartFormData).subscribe(
-            (response) => {
+            (photoData: ProfilePhoto) => {
               alert('Profile Photo added succesfully!');;
-              console.log(response)
             },
             (response) =>  {
               if (response.error?.message) {

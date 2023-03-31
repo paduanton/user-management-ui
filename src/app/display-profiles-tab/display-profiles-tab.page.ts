@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { UserService } from '../services/user.service';
 import { environment } from 'src/environments/environment';
-
+import { User } from 'src/app/interfaces/user.interface'
 
 @Component({
   selector: 'display-profiles-tab',
@@ -10,16 +10,16 @@ import { environment } from 'src/environments/environment';
 })
 export class DisplayProfilesPage {
   userServiceAPIBaseURL: string = environment.userServiceAPIBaseURL;
-  users: Array<Object> = [];
+  users: Array<User> = [];
 
   constructor(public userService: UserService) { }
 
   ionViewWillEnter() {
     this.userService.getUsers().subscribe(
-      (response: Array<Object>) => {
-        this.users = response.map((user: any) => {
+      (usersData: Array<User>) => {
+        this.users = usersData.map((user: User) => {
 
-          const profilePhoto = `${this.userServiceAPIBaseURL}/user/${user._id}/photo`
+          const profilePhoto: string = `${this.userServiceAPIBaseURL}/user/${user._id}/photo`
           const parsedUser = {
             ...user,
             profilePhoto
@@ -28,7 +28,7 @@ export class DisplayProfilesPage {
           return parsedUser;
         });
       },
-      (response) =>  {
+      (response: any) =>  {
         if (response.error?.message) {
           alert(response.error?.message[0])
         } else {
