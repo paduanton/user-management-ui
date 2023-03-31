@@ -3,6 +3,7 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { UserService } from '../services/user.service';
 import { User } from 'src/app/interfaces/user.interface'
 import { ProfilePhoto } from '../interfaces/profilePhoto.interface';
+import { AlertController } from '@ionic/angular';
 
 @Component({
   selector: 'create-profile-tab',
@@ -25,12 +26,15 @@ export class CreateProfilePage {
   }
   profilePhoto: File = null;
 
-  constructor(public formBuilder: FormBuilder, public userService: UserService) { }
+  constructor(
+    private alertController: AlertController,
+    public formBuilder: FormBuilder, 
+    public userService: UserService) { }
   
   ngOnInit() {
     this.profileForm = this.formBuilder.group({
       profilePhoto: ['', [Validators.required]],
-      firstName: ['', [Validators.required, Validators.minLength(5)]],
+      firstName: ['', [Validators.required, Validators.minLength(1)]],
       lastName: ['', [Validators.required, Validators.minLength(5)]],
       birthDate: ['', Validators.required],
       phoneNumber: ['', [Validators.minLength(5), Validators.required, Validators.pattern('^[0-9]+$')]],
@@ -74,41 +78,74 @@ export class CreateProfilePage {
         phone_number: phoneNumber
       }
       this.userService.createUser(userData).subscribe(
-        (userData: User) => {
+        async (userData: User) => {
           const { _id } = userData;
 
-          alert('Profile added succesfully!');
-
-          const multipartFormData: any = new FormData();
+          const alert = await this.alertController.create({
+            header: 'Success!',
+            subHeader: 'Check the new profile in the display tab.',
+            message: 'Profile added succesfully',
+            buttons: ['OK'],
+          });
+          await alert.present();
+          
+          const multipartFormData: FormData = new FormData();
           multipartFormData.append("image", this.profilePhoto);
 
           this.userService.createUserPhoto(_id, multipartFormData).subscribe(
-            (photoData: ProfilePhoto) => {
-              alert('Profile Photo added succesfully!');;
+            async (photoData: ProfilePhoto) => {
+              const alert = await this.alertController.create({
+                header: 'Success!',
+                subHeader: 'Profile Photo added succesfully',
+                message: 'Check the new profile in the display tab.',
+                buttons: ['OK'],
+              });
+          
+              await alert.present();
             },
-            (response) =>  {
-              if (response.error?.message) {
-                alert(`Not able to store Profile Image! ${response.error?.message[0]}`)
-              } else {
-                alert('Not able to store profile photo, please check the input data and try again (we only all images on profile)');
+            async (response) =>  {
+              let alert;
 
+              if (response.error?.message) {
+                alert = await this.alertController.create({
+                  header: 'Fail!',
+                  subHeader: 'Not able to store Profile Image!',
+                  message: response.error?.message[0],
+                  buttons: ['OK'],
+                });
+              } else {
+                alert = await this.alertController.create({
+                  header: 'Fail!',
+                  subHeader: 'Not able to store Profile Image!',
+                  message: 'Check the input data and try again',
+                  buttons: ['OK'],
+                });
               }
+              await alert.present();
             }
           );
-          
-          // this.alertInfo.isOpen = true;
-          // this.alertInfo.subHeader ='Check the new profile on the display tab.';
-          // this.alertInfo.header ='Profile added succesfully!';
           this.isSubmitted = false;
           this.profileForm.reset();
         },
-        (response) =>  {
-          if (response.error?.message) {
-            alert(response.error?.message[0])
-          } else {
-            alert('Not able to create profile, please check the input data and try again (we only all images on profile)');
+        async (response) =>  {
+          let alert;
 
+          if (response.error?.message) {
+            alert = await this.alertController.create({
+              header: 'Fail!',
+              subHeader: 'Not able to store Profile Image!',
+              message: response.error?.message[0],
+              buttons: ['OK'],
+            });
+          } else {
+            alert = await this.alertController.create({
+              header: 'Fail!',
+              subHeader: 'Not able to store Profile!',
+              message: 'Check the input data and try again',
+              buttons: ['OK'],
+            });
           }
+          await alert.present();
         }
       );
     }
