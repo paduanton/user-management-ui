@@ -10,7 +10,17 @@ import { UserService } from '../services/user.service';
 export class Tab1Page {
   profileForm: FormGroup;
   isSubmitted: boolean = false;
-
+  public alertInfo: {
+    header: string,
+    subHeader: string,
+    isOpen: boolean,
+    buttons: Array<string>
+  }  = {
+    header: '',
+    subHeader: '',
+    isOpen: false,
+    buttons:  ['OK']
+  }
   constructor(public formBuilder: FormBuilder, public userService: UserService) { }
   
   ngOnInit() {
@@ -34,7 +44,7 @@ export class Tab1Page {
     })
   }
 
-  async submitForm() {
+  submitForm() {
     this.isSubmitted = true;
     if (!this.profileForm.valid) {
       console.log('Please provide all the required values!')
@@ -52,10 +62,24 @@ export class Tab1Page {
         state: state,
         phone_number: phoneNumber
       }
-      await this.userService.createUser(userData);
-      this.isSubmitted = false;
-      this.profileForm.reset();
+      this.userService.createUser(userData).subscribe(
+        (response) => {
+          this.isSubmitted = false;
+          this.profileForm.reset();
+
+          this.alertInfo.isOpen = true;
+          this.alertInfo.subHeader ='Check the new profile on the display tab.';
+          this.alertInfo.header ='Profile added succesfully!';
+          
+          console.log(response)
+        },
+        (error) => console.log(error)
+      );
     }
+  }
+
+  openAlertInfo(isOpen: boolean) {
+    this.alertInfo.isOpen = isOpen;
   }
 
   get errorControl() {

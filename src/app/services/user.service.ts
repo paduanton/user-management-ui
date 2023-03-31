@@ -12,9 +12,6 @@ export class UserService {
   constructor(private http: HttpClient) { }
 
   createUser(userData) {
-    return this.http.post(`${this.userServiceAPIBaseURL}/user`, userData).subscribe(
-      (response) => console.log(response),
-      (error) => console.log(error)
-    )
+    return this.http.post(`${this.userServiceAPIBaseURL}/user`, userData);
   }
 }
