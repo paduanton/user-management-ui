@@ -95,9 +95,7 @@ export class CreateProfilePage {
             }
           );
           
-          // this.alertInfo.isOpen = true;
-          // this.alertInfo.subHeader ='Check the new profile on the display tab.';
-          // this.alertInfo.header ='Profile added succesfully!';
+
           this.isSubmitted = false;
           this.profileForm.reset();
         },
