@@ -13,18 +13,21 @@
     </ion-toolbar>
   </ion-header>
 
-  <ion-card>
+  <div *ngIf="users.length == 0" id="container">
+    <strong>No data to show at this time! Please add one Profile and try again!</strong>
+  </div>
+  <ion-card *ngFor="let user of users; index as i;">
     <ion-card-header>
-      <ion-card-title>Job Title</ion-card-title>
+      <ion-card-title>{{ user.job_title }}</ion-card-title>
       <div style="display: flex; justify-content: space-between;">
         <div>
-          <ion-card-subtitle>Street</ion-card-subtitle>
-          <ion-card-subtitle>City</ion-card-subtitle>
-          <ion-card-subtitle>State</ion-card-subtitle>
+          <ion-card-subtitle>Street: {{ user.street }}</ion-card-subtitle>
+          <ion-card-subtitle>City: {{ user.city }}</ion-card-subtitle>
+          <ion-card-subtitle>State: {{ user.state }}te</ion-card-subtitle>
 
         </div>
         <div>
-          <ion-card-subtitle>Phone Number Subtitle</ion-card-subtitle>
+          <ion-card-subtitle>+{{ user.phone_number }}</ion-card-subtitle>
         </div>
       </div>
     </ion-card-header>
@@ -32,14 +35,13 @@
       <ion-list>
         <ion-item>
           <ion-thumbnail slot="start">
-            <img alt="Silhouette of mountains" src="https://ionicframework.com/docs/img/demos/thumbnail.svg" />
+            <img [alt]="user.first_name" [src]="user.profilePhoto" />
           </ion-thumbnail>
-          <ion-label>First Name + Last Name</ion-label>
-          <ion-label>Birth Date</ion-label>
+          <ion-label>{{ user.first_name }} {{ user.last_name }}</ion-label>
+          <ion-label>{{ user.birth_date }}</ion-label>
 
         </ion-item>
       </ion-list>
     </ion-card-content>
   </ion-card>
-  
 </ion-content>
