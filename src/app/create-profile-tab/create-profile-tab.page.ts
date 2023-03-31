@@ -13,17 +13,6 @@ import { AlertController } from '@ionic/angular';
 export class CreateProfilePage {
   profileForm: FormGroup;
   isSubmitted: boolean = false;
-  alertInfo: {
-    header: string,
-    subHeader: string,
-    isOpen: boolean,
-    buttons: Array<string>
-  }  = {
-    header: '',
-    subHeader: '',
-    isOpen: false,
-    buttons:  ['OK']
-  }
   profilePhoto: File = null;
 
   constructor(
@@ -34,7 +23,7 @@ export class CreateProfilePage {
   ngOnInit() {
     this.profileForm = this.formBuilder.group({
       profilePhoto: ['', [Validators.required]],
-      firstName: ['', [Validators.required, Validators.minLength(1)]],
+      firstName: ['', [Validators.required, Validators.minLength(5)]],
       lastName: ['', [Validators.required, Validators.minLength(5)]],
       birthDate: ['', Validators.required],
       phoneNumber: ['', [Validators.minLength(5), Validators.required, Validators.pattern('^[0-9]+$')]],
@@ -149,10 +138,6 @@ export class CreateProfilePage {
         }
       );
     }
-  }
-
-  openAlertInfo(isOpen: boolean) {
-    this.alertInfo.isOpen = isOpen;
   }
 
   get errorControl() {

@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { UserService } from '../services/user.service';
 import { environment } from 'src/environments/environment';
 import { User } from 'src/app/interfaces/user.interface'
+import { AlertController } from '@ionic/angular';
 
 @Component({
   selector: 'display-profiles-tab',
@@ -12,7 +13,7 @@ export class DisplayProfilesPage {
   userServiceAPIBaseURL: string = environment.userServiceAPIBaseURL;
   users: Array<User> = [];
 
-  constructor(public userService: UserService) { }
+  constructor(private alertController: AlertController, public userService: UserService) { }
 
   ionViewWillEnter() {
     this.userService.getUsers().subscribe(
@@ -28,12 +29,25 @@ export class DisplayProfilesPage {
           return parsedUser;
         });
       },
-      (response: any) =>  {
+      async (response) =>  {
+        let alert;
+
         if (response.error?.message) {
-          alert(response.error?.message[0])
+          alert = await this.alertController.create({
+            header: 'Fail!',
+            subHeader: 'Not able to store Profile Image!',
+            message: response.error?.message[0],
+            buttons: ['OK'],
+          });
         } else {
-          alert('Not able to get users, please try again');
+          alert = await this.alertController.create({
+            header: 'Fail!',
+            subHeader: 'Not able to get users!',
+            message: 'Please, try again',
+            buttons: ['OK'],
+          });
         }
+        await alert.present();
       }
     );
   }
