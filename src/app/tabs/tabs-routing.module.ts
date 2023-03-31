@@ -18,12 +18,12 @@ const routes: Routes = [
         ]
       },
       {
-        path: 'tab3',
+        path: 'display-profiles',
         children: [
           {
             path: '',
             loadChildren: () =>
-              import('../display-profiles-tab/display-profiles-tab.module').then(m => m.Tab3PageModule)
+              import('../display-profiles-tab/display-profiles-tab.module').then(m => m.DisplayProfilesPageModule)
           }
         ]
       },

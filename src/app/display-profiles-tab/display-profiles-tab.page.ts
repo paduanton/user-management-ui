@@ -8,13 +8,13 @@ import { environment } from 'src/environments/environment';
   templateUrl: 'display-profiles-tab.page.html',
   styleUrls: ['display-profiles-tab.page.scss']
 })
-export class Tab3Page {
+export class DisplayProfilesPage {
   userServiceAPIBaseURL: string = environment.userServiceAPIBaseURL;
   users: Array<Object> = [];
 
   constructor(public userService: UserService) { }
 
-  ngOnInit() {
+  ionViewWillEnter() {
     this.userService.getUsers().subscribe(
       (response: Array<Object>) => {
         this.users = response.map((user: any) => {
