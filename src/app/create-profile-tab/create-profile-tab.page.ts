@@ -33,7 +33,7 @@ export class CreateProfilePage {
       firstName: ['', [Validators.required, Validators.minLength(5)]],
       lastName: ['', [Validators.required, Validators.minLength(5)]],
       birthDate: ['', Validators.required],
-      phoneNumber: ['', [Validators.required, Validators.pattern('^[0-9]+$')]],
+      phoneNumber: ['', [Validators.minLength(5), Validators.required, Validators.pattern('^[0-9]+$')]],
       jobTitle: ['', [Validators.required, Validators.minLength(5)]],
       city: ['', [Validators.required, Validators.minLength(5)]],
       street: ['', [Validators.required, Validators.minLength(5)]],

@@ -1,6 +1,8 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { TabsPage } from './tabs.page';
+import {CreateProfilePageModule} from '../create-profile-tab/create-profile-tab.module'
+import { DisplayProfilesPageModule } from '../display-profiles-tab/display-profiles-tab.module'
 
 const routes: Routes = [
   {
@@ -12,8 +14,7 @@ const routes: Routes = [
         children: [
           {
             path: '',
-            loadChildren: () =>
-              import('../create-profile-tab/create-profile-tab.module').then(m => m.CreateProfilePageModule)
+            loadChildren: () => CreateProfilePageModule
           }
         ]
       },
@@ -22,8 +23,7 @@ const routes: Routes = [
         children: [
           {
             path: '',
-            loadChildren: () =>
-              import('../display-profiles-tab/display-profiles-tab.module').then(m => m.DisplayProfilesPageModule)
+            loadChildren: () => DisplayProfilesPageModule
           }
         ]
       },

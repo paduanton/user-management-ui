@@ -31,7 +31,7 @@
       First Name is required.
     </span>
     <span class="error ion-padding" *ngIf="isSubmitted && errorControl.firstName.errors?.minlength">
-      First Name should be min 2 chars long.
+      First Name should be min 5 chars long.
     </span>
     <ion-item lines="full">
       <ion-label position="floating">Last Name</ion-label>
@@ -41,7 +41,7 @@
       Last Name is required.
     </span>
     <span class="error ion-padding" *ngIf="isSubmitted && errorControl.lastName.errors?.minlength">
-      Last Name should be min 2 chars long.
+      Last Name should be min 5 chars long.
     </span>
     <ion-item lines="full">
       <ion-label position="floating">Date of Birth</ion-label>
@@ -57,6 +57,9 @@
     <span class="error ion-padding" *ngIf="isSubmitted && errorControl.phoneNumber.errors?.required">
       Phone number is required.
     </span>
+    <span class="error ion-padding" *ngIf="isSubmitted && errorControl.phoneNumber.errors?.minlength">
+      Phone number should be min 5 chars long.
+    </span>
     <span class="error ion-padding" *ngIf="isSubmitted && errorControl.phoneNumber.errors?.pattern">
       Only numerical values allowed.
     </span>
@@ -68,7 +71,7 @@
       Job Title is required.
     </span>
     <span class="error ion-padding" *ngIf="isSubmitted && errorControl.jobTitle.errors?.minlength">
-      Job Title should be min 2 chars long.
+      Job Title should be min 5 chars long.
     </span>
     <div class="ion-padding">
       <strong>Address</strong>
@@ -81,7 +84,7 @@
       City is required.
     </span>
     <span class="error ion-padding" *ngIf="isSubmitted && errorControl.city.errors?.minlength">
-      City should be min 2 chars long.
+      City should be min 5 chars long.
     </span>
     <ion-item lines="full">
       <ion-label position="floating">Street</ion-label>
@@ -91,7 +94,7 @@
       Street is required.
     </span>
     <span class="error ion-padding" *ngIf="isSubmitted && errorControl.street.errors?.minlength">
-      Street should be min 2 chars long.
+      Street should be min 5 chars long.
     </span>
     <ion-item lines="full">
       <ion-label position="floating">State</ion-label>
@@ -101,7 +104,7 @@
       State is required.
     </span>
     <span class="error ion-padding" *ngIf="isSubmitted && errorControl.state.errors?.minlength">
-      State should be min 2 chars long.
+      State should be min 5 chars long.
     </span>
     <ion-row>
       <ion-col>
