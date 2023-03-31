@@ -4,9 +4,9 @@ import { environment } from 'src/environments/environment';
 
 
 @Component({
-  selector: 'app-tab3',
-  templateUrl: 'tab3.page.html',
-  styleUrls: ['tab3.page.scss']
+  selector: 'display-profiles-tab',
+  templateUrl: 'display-profiles-tab.page.html',
+  styleUrls: ['display-profiles-tab.page.scss']
 })
 export class Tab3Page {
   userServiceAPIBaseURL: string = environment.userServiceAPIBaseURL;
@@ -27,14 +27,12 @@ export class Tab3Page {
           
           return parsedUser;
         });
-        console.log(response)
       },
       (response) =>  {
         if (response.error?.message) {
           alert(response.error?.message)
         } else {
           alert('Not able to get users, please try again');
-
         }
       }
     );
