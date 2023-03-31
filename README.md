@@ -8,8 +8,6 @@ User Management is an open source project that implements a simple User Manageme
 * [Ionic CLI](https://ionicframework.com/docs/reference/release-notes#7.0.0)
 * [NodeJs 16.18](https://nodejs.org/en)
 * [npm](https://www.npmjs.com/)
-* [Docker Compose](https://docs.docker.com/compose/install)
-
 After clonning the repo, run the following commands on bash, inside the root directory:
 
 Install dependencies:
