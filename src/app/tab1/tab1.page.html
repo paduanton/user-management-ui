@@ -1,7 +1,7 @@
 <ion-header>
   <ion-toolbar>
     <ion-title>
-      Tab 1
+      Add Profile
     </ion-title>
   </ion-toolbar>
 </ion-header>
@@ -12,9 +12,91 @@
       <ion-title size="large">Tab 1</ion-title>
     </ion-toolbar>
   </ion-header>
-
-  <div id="container">
-    <strong>te</strong>
-    <p>Explore <a target="_blank" rel="noopener noreferrer" href="https://ionicframework.com/docs/components">UI Components</a></p>
-  </div>
+  <form [formGroup]="profileForm" (ngSubmit)="submitForm()" novalidate>
+    <ion-item lines="full">
+      <ion-label position="floating">First Name</ion-label>
+      <ion-input formControlName="firstName" type="text"></ion-input>
+    </ion-item>
+    <span class="error ion-padding" *ngIf="isSubmitted && errorControl.firstName.errors?.required">
+      First Name is required.
+    </span>
+    <span class="error ion-padding" *ngIf="isSubmitted && errorControl.firstName.errors?.minlength">
+      First Name should be min 2 chars long.
+    </span>
+    <ion-item lines="full">
+      <ion-label position="floating">Last Name</ion-label>
+      <ion-input formControlName="lastName" type="text"></ion-input>
+    </ion-item>
+    <span class="error ion-padding" *ngIf="isSubmitted && errorControl.lastName.errors?.required">
+      Last Name is required.
+    </span>
+    <span class="error ion-padding" *ngIf="isSubmitted && errorControl.lastName.errors?.minlength">
+      Last Name should be min 2 chars long.
+    </span>
+    <ion-item lines="full">
+      <ion-label position="floating">Date Of Birth</ion-label>
+      <ion-datetime (ionChange)="getDate($event)" formControlName="birthDate"></ion-datetime>
+    </ion-item>
+    <span class="error ion-padding" *ngIf="isSubmitted && errorControl.birthDate.errors?.required">
+      Date Of Birth is required.
+    </span>
+    <ion-item lines="full">
+      <ion-label position="floating">Phone Number</ion-label>
+      <ion-input maxlength="10" formControlName="phoneNumber" type="text" required></ion-input>
+    </ion-item>
+    <span class="error ion-padding" *ngIf="isSubmitted && errorControl.phoneNumber.errors?.required">
+      Phone number is required.
+    </span>
+    <span class="error ion-padding" *ngIf="isSubmitted && errorControl.phoneNumber.errors?.pattern">
+      Only numerical values allowed.
+    </span>
+    <ion-item lines="full">
+      <ion-label position="floating">Job Title</ion-label>
+      <ion-input formControlName="jobTitle" type="text"></ion-input>
+    </ion-item>
+    <span class="error ion-padding" *ngIf="isSubmitted && errorControl.jobTitle.errors?.required">
+      Job Title is required.
+    </span>
+    <span class="error ion-padding" *ngIf="isSubmitted && errorControl.jobTitle.errors?.minlength">
+      Job Title should be min 2 chars long.
+    </span>
+    <div class="ion-padding">
+      <strong>Address</strong>  
+    </div>
+    <ion-item lines="full">
+      <ion-label position="floating">City</ion-label>
+      <ion-input formControlName="city" type="text"></ion-input>
+    </ion-item>
+    <span class="error ion-padding" *ngIf="isSubmitted && errorControl.city.errors?.required">
+      City is required.
+    </span>
+    <span class="error ion-padding" *ngIf="isSubmitted && errorControl.city.errors?.minlength">
+      City should be min 2 chars long.
+    </span>
+    <ion-item lines="full">
+      <ion-label position="floating">Street</ion-label>
+      <ion-input formControlName="street" type="text"></ion-input>
+    </ion-item>
+    <span class="error ion-padding" *ngIf="isSubmitted && errorControl.street.errors?.required">
+      Street is required.
+    </span>
+    <span class="error ion-padding" *ngIf="isSubmitted && errorControl.street.errors?.minlength">
+      Street should be min 2 chars long.
+    </span>
+    <ion-item lines="full">
+      <ion-label position="floating">State</ion-label>
+      <ion-input formControlName="state" type="text"></ion-input>
+    </ion-item>
+    <span class="error ion-padding" *ngIf="isSubmitted && errorControl.state.errors?.required">
+      State is required.
+    </span>
+    <span class="error ion-padding" *ngIf="isSubmitted && errorControl.state.errors?.minlength">
+      State should be min 2 chars long.
+    </span>
+    <ion-row>
+      <ion-col>
+        <ion-button type="submit" color="danger" expand="block">Submit</ion-button>
+      </ion-col>
+    </ion-row>
+  </form>
 </ion-content>

@@ -25,6 +25,10 @@
 #container a {
   text-decoration: none;
 }
+
+.error {
+  color: rgba(255, 0, 0, 0.747)
+}
 /* Core CSS required for Ionic components to work properly */
 @import "~@ionic/angular/css/core.css";
 
