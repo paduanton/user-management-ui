@@ -10,7 +10,7 @@ import { UserService } from '../services/user.service';
 export class Tab1Page {
   profileForm: FormGroup;
   isSubmitted: boolean = false;
-  public alertInfo: {
+  alertInfo: {
     header: string,
     subHeader: string,
     isOpen: boolean,
@@ -21,10 +21,13 @@ export class Tab1Page {
     isOpen: false,
     buttons:  ['OK']
   }
+  profilePhoto: File = null;
+
   constructor(public formBuilder: FormBuilder, public userService: UserService) { }
   
   ngOnInit() {
     this.profileForm = this.formBuilder.group({
+      profilePhoto: ['', [Validators.required]],
       firstName: ['', [Validators.required, Validators.minLength(5)]],
       lastName: ['', [Validators.required, Validators.minLength(5)]],
       birthDate: ['', Validators.required],
@@ -44,13 +47,17 @@ export class Tab1Page {
     })
   }
 
+  onProfilePhotoChange(event) {
+    this.profilePhoto = event.target.files[0];
+  }
+
   submitForm() {
     this.isSubmitted = true;
+
     if (!this.profileForm.valid) {
-      console.log('Please provide all the required values!')
       return false;
     } else {
-      const { firstName, lastName, birthDate, phoneNumber, jobTitle, city, street, state} = this.profileForm.value;
+      const { firstName, lastName, birthDate, phoneNumber, jobTitle, city, street, state } = this.profileForm.value;
 
       const userData = {
         first_name: firstName,
@@ -63,17 +70,48 @@ export class Tab1Page {
         phone_number: phoneNumber
       }
       this.userService.createUser(userData).subscribe(
-        (response) => {
+        (response: any) => {
+          const { _id } = response;
+
+          alert('Profile added succesfully!');
+
           this.isSubmitted = false;
           this.profileForm.reset();
 
-          this.alertInfo.isOpen = true;
-          this.alertInfo.subHeader ='Check the new profile on the display tab.';
-          this.alertInfo.header ='Profile added succesfully!';
+          const multipartFormData: any = new FormData();
+          multipartFormData.append("image", this.profilePhoto);
+
+
+          this.userService.createUserPhoto(_id, multipartFormData).subscribe(
+            (response) => {
+              alert('Profile Photo added succesfully!');;
+              console.log(response)
+            },
+            (response) =>  {
+              if (response.error?.message) {
+                alert(response.error?.message)
+              } else {
+                alert('Not able to store profile photo, please check the input data and try again (we only all images on profile)');
+
+              }
+            }
+          );
           
+          // this.alertInfo.isOpen = true;
+          // this.alertInfo.subHeader ='Check the new profile on the display tab.';
+          // this.alertInfo.header ='Profile added succesfully!';
           console.log(response)
         },
-        (error) => console.log(error)
+        (response) =>  {
+          if (response.error?.message) {
+            alert(response.error?.message)
+          } else {
+            alert('Not able to create profile, please check the input data and try again (we only all images on profile)');
+
+          }
+
+          console.log(response)
+        }
       );
     }
   }

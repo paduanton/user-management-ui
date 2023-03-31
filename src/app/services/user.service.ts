@@ -11,7 +11,15 @@ export class UserService {
   
   constructor(private http: HttpClient) { }
 
+  getUserProfiles() {
+    return this.http.get(`${this.userServiceAPIBaseURL}/user`);
+  }
+
   createUser(userData) {
     return this.http.post(`${this.userServiceAPIBaseURL}/user`, userData);
+  }
+
+  createUserPhoto(id: string, image) {
+    return this.http.post(`${this.userServiceAPIBaseURL}/user/${id}/photo`, image);
   }
 }
