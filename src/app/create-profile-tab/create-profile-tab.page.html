@@ -14,7 +14,7 @@
   </ion-header>
   <form [formGroup]="profileForm" (ngSubmit)="submitForm()" novalidate>
     <ion-item lines="full">
-      <ion-label position="floating">Profile Photo</ion-label>
+      <ion-label class="m-b-15" position="floating">Profile Photo</ion-label>
       <ion-input formControlName="profilePhoto" (change)="onProfilePhotoChange($event)" type="file"></ion-input>
     </ion-item>
     <span class="error ion-padding" *ngIf="isSubmitted && errorControl.profilePhoto.errors?.pattern">

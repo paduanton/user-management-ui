@@ -3,11 +3,11 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { UserService } from '../services/user.service';
 
 @Component({
-  selector: 'app-tab1',
-  templateUrl: 'tab1.page.html',
-  styleUrls: ['tab1.page.scss']
+  selector: 'create-profile-tab',
+  templateUrl: 'create-profile-tab.page.html',
+  styleUrls: ['create-profile-tab.page.scss']
 })
-export class Tab1Page {
+export class CreateProfilePage {
   profileForm: FormGroup;
   isSubmitted: boolean = false;
   alertInfo: {

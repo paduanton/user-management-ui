@@ -3,7 +3,7 @@ import { RouterModule } from '@angular/router';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { Tab1Page } from './tab1.page';
+import { CreateProfilePage } from './create-profile-tab.page';
 import { ExploreContainerComponentModule } from '../explore-container/explore-container.module';
 
 @NgModule({
@@ -13,9 +13,9 @@ import { ExploreContainerComponentModule } from '../explore-container/explore-co
     FormsModule,
     ReactiveFormsModule,
     ExploreContainerComponentModule,
-    RouterModule.forChild([{ path: '', component: Tab1Page }]),
+    RouterModule.forChild([{ path: '', component: CreateProfilePage }]),
     
   ],
-  declarations: [Tab1Page]
+  declarations: [CreateProfilePage]
 })
-export class Tab1PageModule {}
+export class CreateProfilePageModule {}
